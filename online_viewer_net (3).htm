@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantasha Siddique | Data & Business Analyst Portfolio</title>
+    <!-- Font Awesome for sleek modern icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS for high fidelity responsive layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            white: '#f5f0fa',         // Primary Light Violet background
+                            surface: '#faf6ff',       // Clean card surface background 
+                            rose: '#c28087',          // Dusty Rose main accents
+                            roseDark: '#914e55',      // Deep high contrast Dusty Rose for reading text
+                            roseLight: '#f5e6e8',     // Light pastel accent highlights
+                            textMain: '#1e1224',      // Ultra deep violet-charcoal for optimal reading contrast
+                            textMuted: '#64536b',     // Balanced medium muted tone for secondary descriptions
+                            border: '#e2d4eb'         // Clean custom violet borders
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom typing cursor effect with dusty rose accent */
+        .typing-text {
+            border-right: 3px solid #c28087;
+            white-space: normal;
+            overflow: hidden;
+            width: 0;
+            animation: typing 3.5s steps(90, end) forwards, blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #c28087 }
+        }
+
+        /* Glassmorphism effects with subtle light violet undertones */
+        .glass-nav {
+            background-color: rgba(245, 240, 250, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Smooth page transition elements */
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.03);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        /* Hide scrollbars during introductory screen */
+        .overflow-lock {
+            overflow: hidden !important;
+        }
+
+        /* Custom scrollbar styling matching light rose theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5f0fa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e2d4eb;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c28087;
+        }
+    </style>
+</head>
+<body class="bg-brand-white text-brand-textMain font-sans selection:bg-brand-rose selection:text-white overflow-lock">
+
+    <!-- INTRO SPLASH OVERLAY (Forced Action - Scroll Locked until user interacts) -->
+    <div id="intro-overlay" class="fixed inset-0 z-[9999] bg-brand-white flex flex-col justify-center items-center p-6 transition-all duration-1000">
+        <div class="max-w-xl w-full text-center space-y-8">
+            <div class="flex justify-center mb-2">
+                <!-- Splash Profile picture wrapper with fallback -->
+                <div class="h-28 w-28 rounded-full border-4 border-brand-rose p-1 flex items-center justify-center bg-white overflow-hidden shadow-lg relative shrink-0">
+                    <!-- Adjusted image alignment: object-[center_15%] drags the photo down inside the circle -->
+                    <img id="splash-pfp" class="h-full w-full object-cover object-[center_15%] rounded-full hidden" alt="Mantasha" />
+                    <!-- Initial placeholder avatar -->
+                    <div class="fallback-avatar-splash absolute inset-0 bg-brand-roseLight flex flex-col items-center justify-center text-brand-roseDark font-bold text-2xl">
+                        <i class="fa-solid fa-user-graduate text-3xl mb-1"></i>
+                        <span>M.S.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="min-h-[120px] md:min-h-[80px] flex justify-center items-center">
+                <div class="typing-text text-lg md:text-xl text-brand-textMain leading-relaxed">
+                    Hi, I am <span class="text-brand-roseDark font-semibold">Mantasha</span>. Nice to meet you! To know more about me, you can go through my portfolio...
+                </div>
+            </div>
+            
+            <button onclick="skipIntro()" class="px-8 py-3 bg-brand-rose hover:bg-brand-roseDark text-white font-semibold tracking-wider rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-brand-rose/20">
+                Let's Go <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- PORTFOLIO WRAPPER (Locked until Let's Go is clicked) -->
+    <div id="main-portfolio" class="opacity-0 transition-opacity duration-1000">
+        
+        <!-- HEADER / NAVIGATION -->
+        <header class="fixed top-0 left-0 w-full glass-nav border-b border-brand-border/60 z-50 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#about" class="text-xl font-bold tracking-wider hover:opacity-90 transition-opacity">
+                    MANTASHA<span class="text-brand-rose">.S</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="nav-link text-sm font-medium text-brand-roseDark border-b-2 border-brand-rose pb-1 transition-colors duration-300">About</a>
+                    <a href="#experience" class="nav-link text-sm font-medium text-brand-textMuted hover:text-brand-roseDark border-b-2 border-transparent hover:border-brand-rose pb-1 transition-colors duration-300">Experience</a>
+                    <a href="#projects" class="nav-link text-sm font-medium text-brand-textMuted hover:text-brand-roseDark border-b-2 border-transparent hover:border-brand-rose pb-1 transition-colors duration-300">Projects</a>
+                    <a href="#skills" class="nav-link text-sm font-medium text-brand-textMuted hover:text-brand-roseDark border-b-2 border-transparent hover:border-brand-rose pb-1 transition-colors duration-300">Skills</a>
+                    <a href="#education" class="nav-link text-sm font-medium text-brand-textMuted hover:text-brand-roseDark border-b-2 border-transparent hover:border-brand-rose pb-1 transition-colors duration-300">Education</a>
+                    <a href="mailto:siddiquemantasha92@gmail.com" class="px-5 py-2.5 bg-brand-rose hover:bg-brand-roseDark text-white rounded text-sm font-semibold shadow-md transition-all duration-300">Get in Touch</a>
+                </nav>
+
+                <!-- Mobile Menu Toggle Button -->
+                <button id="menu-toggle" class="md:hidden p-2 text-brand-textMuted hover:text-brand-textMain focus:outline-none" aria-label="Toggle menu">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Slide-Down Menu Drawer -->
+            <div id="mobile-menu" class="hidden md:hidden bg-brand-surface border-b border-brand-border px-4 py-6 space-y-4 shadow-inner">
+                <a href="#about" class="mobile-nav-link block text-base font-medium text-brand-textMuted hover:text-brand-roseDark transition-colors">About</a>
+                <a href="#experience" class="mobile-nav-link block text-base font-medium text-brand-textMuted hover:text-brand-roseDark transition-colors">Experience</a>
+                <a href="#projects" class="mobile-nav-link block text-base font-medium text-brand-textMuted hover:text-brand-roseDark transition-colors">Projects</a>
+                <a href="#skills" class="mobile-nav-link block text-base font-medium text-brand-textMuted hover:text-brand-roseDark transition-colors">Skills</a>
+                <a href="#education" class="mobile-nav-link block text-base font-medium text-brand-textMuted hover:text-brand-roseDark transition-colors">Education</a>
+                <div class="pt-4 border-t border-brand-border">
+                    <a href="mailto:siddiquemantasha92@gmail.com" class="block w-full text-center px-4 py-2.5 bg-brand-rose text-white rounded font-semibold text-sm">
+                        <i class="fa-solid fa-envelope mr-2"></i>Email Me
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- HERO / ABOUT SECTION -->
+        <section id="about" class="min-h-screen flex items-center pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Text Container (Positioned after the PFP on mobile/tablet, and on the left on desktop) -->
+                <div class="lg:col-span-8 space-y-6 order-2 lg:order-1">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-roseLight border border-brand-rose/20 text-brand-roseDark text-xs sm:text-sm font-semibold tracking-wide">
+                        <i class="fa-solid fa-trophy text-amber-600"></i> Awarded Best Performing Employee
+                    </div>
+
+                    <!-- Main Heading -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-textMain leading-none">
+                        Data-Driven <span class="text-brand-roseDark">Graduate</span> <br class="hidden sm:inline"> & Business Analyst
+                    </h1>
+
+                    <!-- Degree Tagline -->
+                    <h2 class="text-xl sm:text-2xl font-semibold text-brand-textMuted">
+                        B.Sc. (Mathematics, Statistics, Computer Science)
+                    </h2>
+
+                    <!-- Descriptive Paragraph (Expanded to max-w-3xl for full visual depth) -->
+                    <p class="text-base sm:text-lg text-brand-textMuted leading-relaxed max-w-3xl">
+                        Highly skilled in parsing, wrangling, and optimizing multidimensional datasets. I transform complex organizational questions into functional, interactive visual intelligence dashboards using <strong class="text-brand-textMain">Power BI</strong>, <strong class="text-brand-textMain">SQL</strong>, and <strong class="text-brand-textMain">Advanced Excel</strong> to enable data-backed visual analysis.
+                    </p>
+
+                    <!-- Interactive Micro Statistics Counters (Expanded to max-w-3xl to spread fluidly across the layout) -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 max-w-3xl">
+                        <div class="p-4 bg-brand-surface rounded border border-brand-border hover:border-brand-rose/40 transition-all shadow-sm">
+                            <span class="block text-2xl font-bold text-brand-roseDark">6 Months</span>
+                            <span class="text-xs text-brand-textMuted uppercase tracking-wider">Corporate Tenure</span>
+                        </div>
+                        <div class="p-4 bg-brand-surface rounded border border-brand-border hover:border-brand-rose/40 transition-all shadow-sm">
+                            <span class="block text-2xl font-bold text-brand-roseDark">8.97 CGPA</span>
+                            <span class="text-xs text-brand-textMuted uppercase tracking-wider">Academic Grade A</span>
+                        </div>
+                        <div class="p-4 bg-brand-surface rounded border border-brand-border hover:border-brand-rose/40 transition-all col-span-2 sm:col-span-1 shadow-sm">
+                            <span class="block text-2xl font-bold text-brand-roseDark font-sans">#1 Ranked</span>
+                            <span class="text-xs text-brand-textMuted uppercase tracking-wider">Top Process Associate</span>
+                        </div>
+                    </div>
+
+                    <!-- Call To Action Buttons -->
+                    <div class="flex flex-wrap gap-4 pt-6">
+                        <a href="#projects" class="inline-flex items-center justify-center px-6 py-3 bg-brand-rose hover:bg-brand-roseDark text-white font-semibold rounded shadow-md transition-all duration-300 hover:shadow-brand-rose/20 transform hover:-translate-y-0.5">
+                            View My Work <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                        <a href="mailto:siddiquemantasha92@gmail.com" class="inline-flex items-center justify-center px-6 py-3 bg-transparent hover:bg-brand-surface text-brand-textMain border border-brand-border hover:border-brand-rose font-semibold rounded transition-all duration-300">
+                            <i class="fa-solid fa-paper-plane mr-2 text-xs text-brand-rose"></i> Contact Me
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Profile Card Column (Positioned right-aligned on desktop to snap flush against the grid edge) -->
+                <div class="lg:col-span-4 flex justify-center lg:justify-end order-1 lg:order-2">
+                    <div class="w-full max-w-sm bg-brand-surface rounded-2xl border border-brand-border p-6 shadow-md hover:shadow-lg transition-all relative overflow-hidden group">
+                        <!-- Background aesthetic highlights -->
+                        <div class="absolute -right-12 -top-12 w-28 h-28 bg-brand-rose/5 rounded-full blur-xl group-hover:bg-brand-rose/10 transition-all"></div>
+                        <div class="absolute -left-12 -bottom-12 w-28 h-28 bg-brand-rose/5 rounded-full blur-xl group-hover:bg-brand-rose/10 transition-all"></div>
+
+                        <div class="relative z-10 flex flex-col items-center text-center space-y-5">
+                            <!-- PFP Container -->
+                            <div class="h-48 w-48 rounded-full border-4 border-brand-rose p-1 bg-white overflow-hidden shadow-lg relative flex items-center justify-center shrink-0">
+                                <!-- Adjusted image alignment: object-[center_15%] drags the photo down inside the circle -->
+                                <img id="hero-pfp" class="h-full w-full object-cover object-[center_15%] rounded-full hidden" alt="Mantasha Siddique" />
+                                <!-- Premium SVG fallback avatar if drive link fails/is private -->
+                                <div class="fallback-avatar-hero absolute inset-0 bg-brand-roseLight flex flex-col items-center justify-center text-brand-roseDark">
+                                    <i class="fa-solid fa-user-tie text-5xl mb-2"></i>
+                                    <span class="font-bold text-lg tracking-wider">M. SIDDIQUE</span>
+                                </div>
+                            </div>
+
+                            <!-- User information labels -->
+                            <div>
+                                <h3 class="text-xl font-bold text-brand-textMain">Mantasha Siddique</h3>
+                                <p class="text-xs text-brand-roseDark font-semibold tracking-wider uppercase mt-1">Data & Business Analyst</p>
+                                <p class="text-[11px] text-brand-textMuted mt-1"><i class="fa-solid fa-location-dot text-brand-rose mr-1"></i> Mumbai, Maharashtra, India</p>
+                            </div>
+
+                            <hr class="w-full border-brand-border">
+
+                            <!-- Dynamic Shared Link Diagnostic Indicator (Triggers automatically if restricted) -->
+                            <div id="drive-warning" class="hidden w-full bg-amber-50 border border-amber-200 rounded-lg p-3 text-left">
+                                <p class="text-xs text-amber-800 font-semibold flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-exclamation text-amber-600"></i> Photo loading restricted?
+                                </p>
+                                <p class="text-[10px] text-amber-700 leading-normal mt-1">
+                                    Your Google Drive file might be private. In Drive, right click the file -> select <strong>Share</strong> -> change access to <strong>"Anyone with the link"</strong> so everyone can view it!
+                                </p>
+                            </div>
+
+                            <!-- Meta Specifications -->
+                            <div class="w-full text-left space-y-2 text-xs">
+                                <div class="flex justify-between py-1 border-b border-brand-border/60">
+                                    <span class="text-brand-textMuted font-medium">Core Stack:</span>
+                                    <span class="text-brand-textMain font-semibold text-right">Power BI, SQL, Excel</span>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-brand-border/60">
+                                    <span class="text-brand-textMuted font-medium">Degree Program:</span>
+                                    <span class="text-brand-textMain font-semibold text-right">B.Sc. (Math, Stats, CS)</span>
+                                </div>
+                                <div class="flex justify-between py-1">
+                                    <span class="text-brand-textMuted font-medium">Availability:</span>
+                                    <span class="inline-flex items-center gap-1 text-emerald-700 font-semibold">
+                                        <span class="h-2 w-2 rounded-full bg-emerald-500"></span> Active Roles
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE SECTION -->
+        <section id="experience" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-brand-border">
+            <div class="max-w-7xl mx-auto">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-bold tracking-widest text-brand-roseDark uppercase">Career Timeline</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold mt-2 mb-12 relative inline-block">
+                        Professional Experience
+                        <span class="absolute bottom-[-10px] left-0 w-12 h-[3px] bg-brand-rose"></span>
+                    </h2>
+                </div>
+
+                <div class="bg-brand-surface border border-brand-border rounded-lg p-6 sm:p-10 relative overflow-hidden group shadow-sm">
+                    <!-- Subtle brand highlight bar -->
+                    <div class="absolute left-0 top-0 h-full w-1.5 bg-brand-rose"></div>
+                    
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-6 mb-8">
+                        <div>
+                            <span class="inline-block px-3 py-1 bg-brand-roseLight border border-brand-rose/20 text-brand-roseDark rounded text-xs font-semibold uppercase mb-3">Professional Highlight</span>
+                            <h3 class="text-xl sm:text-2xl font-bold text-brand-textMain">Process Associate</h3>
+                            <p class="text-brand-roseDark font-semibold text-sm sm:text-base mt-1">
+                                Finmech Business Services <span class="text-brand-textMuted font-normal">| Mumbai, India</span>
+                            </p>
+                        </div>
+                        <div class="md:text-right">
+                            <span class="inline-flex items-center gap-2 text-brand-textMuted font-mono text-sm bg-brand-white px-3 py-1.5 rounded border border-brand-border shadow-sm">
+                                <i class="fa-regular fa-calendar-days text-brand-rose"></i> Aug 2025 – Jan 2026
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <!-- Key Achievement Callout Box -->
+                        <div class="lg:col-span-4 bg-brand-white p-5 rounded border border-brand-border/80 flex flex-col justify-between shadow-sm">
+                            <div>
+                                <h4 class="text-xs uppercase tracking-wider font-bold text-brand-roseDark mb-2">Primary Achievement</h4>
+                                <p class="text-sm text-brand-textMuted leading-relaxed">
+                                    Awarded <strong class="text-brand-textMain">Best Performing Employee</strong> within a highly competitive operational team by maintaining accuracy rates close to <strong class="text-brand-textMain">100%</strong> on legal processes.
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 mt-4 pt-4 border-t border-brand-border">
+                                <span class="text-3xl font-extrabold text-brand-roseDark">#1</span>
+                                <span class="text-xs text-brand-textMuted uppercase leading-snug">Associate in entire portfolio</span>
+                            </div>
+                        </div>
+
+                        <!-- Core Responsibilities -->
+                        <div class="lg:col-span-8">
+                            <ul class="space-y-4">
+                                <li class="flex gap-3">
+                                    <span class="text-brand-roseDark mt-1 font-bold">→</span>
+                                    <p class="text-sm sm:text-base text-brand-textMuted leading-relaxed">
+                                        <strong class="text-brand-textMain">Ranked #1 Associate:</strong> Consistently exceeded individual productivity guidelines, operational quality audits, and statutory collection targets.
+                                    </p>
+                                </li>
+                                <li class="flex gap-3">
+                                    <span class="text-brand-roseDark mt-1 font-bold">→</span>
+                                    <p class="text-sm sm:text-base text-brand-textMuted leading-relaxed">
+                                        <strong class="text-brand-textMain">Workflow Optimization:</strong> Streamlined active loan analysis processing workflows for <strong class="text-brand-textMain">Tata Capital</strong> and <strong class="text-brand-textMain">Bajaj Finserv</strong> portfolios, verifying full adherence to regulatory compliance standards.
+                                    </p>
+                                </li>
+                                <li class="flex gap-3">
+                                    <span class="text-brand-roseDark mt-1 font-bold">→</span>
+                                    <p class="text-sm sm:text-base text-brand-textMuted leading-relaxed">
+                                        <strong class="text-brand-textMain">Data Integrity & Audits:</strong> Administered clean update schemas across thousands of client histories, maintaining database records with near-zero error index.
+                                    </p>
+                                </li>
+                                <li class="flex gap-3">
+                                    <span class="text-brand-roseDark mt-1 font-bold">→</span>
+                                    <p class="text-sm sm:text-base text-brand-textMuted leading-relaxed">
+                                        <strong class="text-brand-textMain">Compliance Strategy:</strong> Collaborated across cross-functional operations verticals to audit workflows, successfully removing bottlenecks.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-brand-border bg-brand-surface/30">
+            <div class="max-w-7xl mx-auto">
+                <div class="max-w-3xl mb-12">
+                    <span class="text-xs font-bold tracking-widest text-brand-roseDark uppercase">Data Projects</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold mt-2 mb-4 relative inline-block">
+                        My Projects & Case Studies
+                        <span class="absolute bottom-[-10px] left-0 w-12 h-[3px] bg-brand-rose"></span>
+                    </h2>
+                    <p class="text-brand-textMuted text-sm sm:text-base mt-4 leading-relaxed">
+                        A curated showcase of analyses, dashboards, and quantitative pipelines built using Power BI, SQL, and Excel. You can also directly <a href="https://drive.google.com/drive/folders/1FESU2CJTXNX5ksCgrPlkpeF1xfCYqk5a?usp=drive_link" target="_blank" rel="noopener noreferrer" class="text-brand-roseDark hover:text-brand-rose font-bold underline decoration-brand-rose decoration-2 underline-offset-4 transition-colors">explore my complete repository on Google Drive <i class="fa-solid fa-up-right-from-square text-xs ml-0.5"></i></a>.
+                    </p>
+                </div>
+
+                <!-- Projects Responsive Grid (Adjusted for 7 items cleanly) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1: Rapido -->
+                    <div class="bg-brand-surface border border-brand-border hover:border-brand-rose/50 rounded-lg p-8 transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between relative group overflow-hidden shadow-sm hover:shadow-md">
+                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-brand-rose/5 rounded-full blur-xl group-hover:bg-brand-rose/10 transition-all"></div>
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-[10px] font-bold text-brand-roseDark uppercase tracking-wider bg-brand-white px-2.5 py-1 rounded border border-brand-border">Case Study</span>
+                                <i class="fa-solid fa-motorcycle text-brand-textMuted/40 group-hover:text-brand-roseDark transition-colors"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-textMain mb-3">Rapido Operations Analysis</h3>
+                            <p class="text-sm text-brand-textMuted leading-relaxed mb-6">
+                                Cleaned and engineered transactional data to track ride distributions and booking statuses. Built a comprehensive Revenue Dashboard using DAX measures to identify cancellation drivers and bottleneck patterns.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-border/40 flex flex-col gap-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Power BI</span>
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">DAX</span>
+                            </div>
+                            <a href="https://drive.google.com/drive/folders/1a_tC63yBFc8QoNo1E3OfLM2-QpAMpkna?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-roseDark hover:text-brand-rose transition-colors mt-1">
+                                <i class="fa-solid fa-folder-open text-brand-rose"></i> View Project Folder <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Sales Performance -->
+                    <div class="bg-brand-surface border border-brand-border hover:border-brand-rose/50 rounded-lg p-8 transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between relative group overflow-hidden shadow-sm hover:shadow-md">
+                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-brand-rose/5 rounded-full blur-xl group-hover:bg-brand-rose/10 transition-all"></div>
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-[10px] font-bold text-brand-roseDark uppercase tracking-wider bg-brand-white px-2.5 py-1 rounded border border-brand-border">Reporting Dashboard</span>
+                                <i class="fa-solid fa-chart-line text-brand-textMuted/40 group-hover:text-brand-roseDark transition-colors"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-textMain mb-3">Sales Performance Tracker</h3>
+                            <p class="text-sm text-brand-textMuted leading-relaxed mb-6">
+                                Transformed raw transactional records into a structured sales report. Designed responsive dashboards utilizing drill-through filters to quickly discover underperforming regional metrics and high-growth SKU margins.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-border/40 flex flex-col gap-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Power BI</span>
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Power Query</span>
+                            </div>
+                            <a href="https://drive.google.com/drive/folders/17vKXd2Y_3cdE1cueBm_B3Q3K-lw8_XV4?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-roseDark hover:text-brand-rose transition-colors mt-1">
+                                <i class="fa-solid fa-folder-open text-brand-rose"></i> View Project Folder <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Personal Finance -->
+                    <div class="bg-brand-surface border border-brand-border hover:border-brand-rose/50 rounded-lg p-8 transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between relative group overflow-hidden shadow-sm hover:shadow-md">
+                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-brand-rose/5 rounded-full blur-xl group-hover:bg-brand-rose/10 transition-all"></div>
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-[10px] font-bold text-brand-roseDark uppercase tracking-wider bg-brand-white px-2.5 py-1 rounded border border-brand-border">Monthly Analysis</span>
+                                <i class="fa-solid fa-wallet text-brand-textMuted/40 group-hover:text-brand-roseDark transition-colors"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-textMain mb-3">Personal Finance Analysis</h3>
+                            <p class="text-sm text-brand-textMuted leading-relaxed mb-6">
+                                Conducted a thorough monthly retrospective of financial history. Mapped actual cash distributions, expenditures, and income trends using pivot structuring, sparklines, and detailed variance indicators.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-border/40 flex flex-col gap-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Advanced Excel</span>
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Pivot Tables</span>
+                            </div>
+                            <a href="https://drive.google.com/drive/folders/1Iavrv1K-hl3FRskgPMrIZ3zshFXjnYY0?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-roseDark hover:text-brand-rose transition-colors mt-1">
+                                <i class="fa-solid fa-folder-open text-brand-rose"></i> View Project Folder <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Auto Loan Risk Analysis -->
+                    <div class="bg-brand-surface border border-brand-border hover:border-brand-rose/50 rounded-lg p-8 transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between relative group overflow-hidden shadow-sm hover:shadow-md">
+                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-brand-rose/5 rounded-full blur-xl group-hover:bg-brand-rose/10 transition-all"></div>
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-[10px] font-bold text-brand-roseDark uppercase tracking-wider bg-brand-white px-2.5 py-1 rounded border border-brand-border">Risk Modeling</span>
+                                <i class="fa-solid fa-car-burst text-brand-textMuted/40 group-hover:text-brand-roseDark transition-colors"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-textMain mb-3">Auto Loan Risk Analysis</h3>
+                            <p class="text-sm text-brand-textMuted leading-relaxed mb-6">
+                                Evaluated credit portfolios and customer defaults to outline structural auto loan exposure. Designed models tracking correlation vectors between dynamic loan-to-value (LTV) limits and operational charge-offs.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-border/40 flex flex-col gap-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Credit Analytics</span>
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Portfolio Risk</span>
+                            </div>
+                            <a href="https://drive.google.com/drive/folders/1hLEloWLNjasAyxmWgDBi3DLNEKlRZ6Uu?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-roseDark hover:text-brand-rose transition-colors mt-1">
+                                <i class="fa-solid fa-folder-open text-brand-rose"></i> View Project Folder <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Bond Portfolio and Convexity Analysis -->
+                    <div class="bg-brand-surface border border-brand-border hover:border-brand-rose/50 rounded-lg p-8 transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between relative group overflow-hidden shadow-sm hover:shadow-md">
+                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-brand-rose/5 rounded-full blur-xl group-hover:bg-brand-rose/10 transition-all"></div>
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-[10px] font-bold text-brand-roseDark uppercase tracking-wider bg-brand-white px-2.5 py-1 rounded border border-brand-border">Quantitative Finance</span>
+                                <i class="fa-solid fa-hand-holding-dollar text-brand-textMuted/40 group-hover:text-brand-roseDark transition-colors"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-textMain mb-3">Bond Portfolio & Convexity</h3>
+                            <p class="text-sm text-brand-textMuted leading-relaxed mb-6">
+                                Developed quantitative models to analyze duration indices and convexity dynamics on fixed-income debt. Created dynamic sheets simulating interest shifts to optimize risk profiles and yield structures.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-border/40 flex flex-col gap-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Financial Math</span>
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Yield Curves</span>
+                            </div>
+                            <a href="https://drive.google.com/drive/folders/1tLT1qYnTuT_mVMFr8jJs4GqM9t6B-qw-?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-roseDark hover:text-brand-rose transition-colors mt-1">
+                                <i class="fa-solid fa-folder-open text-brand-rose"></i> View Project Folder <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Forex Trading Performance -->
+                    <div class="bg-brand-surface border border-brand-border hover:border-brand-rose/50 rounded-lg p-8 transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between relative group overflow-hidden shadow-sm hover:shadow-md">
+                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-brand-rose/5 rounded-full blur-xl group-hover:bg-brand-rose/10 transition-all"></div>
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-[10px] font-bold text-brand-roseDark uppercase tracking-wider bg-brand-white px-2.5 py-1 rounded border border-brand-border">Performance Tracking</span>
+                                <i class="fa-solid fa-coins text-brand-textMuted/40 group-hover:text-brand-roseDark transition-colors"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-textMain mb-3">Forex Trading Performance</h3>
+                            <p class="text-sm text-brand-textMuted leading-relaxed mb-6">
+                                Built volatility metrics and drawdown calculators to assess international currency trading portfolios. Optimized backtesting layouts mapping distribution spreads across high-frequency metrics.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-border/40 flex flex-col gap-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Backtesting</span>
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Performance</span>
+                            </div>
+                            <a href="https://drive.google.com/drive/folders/11Wg2R3s0Ea1kLiZihFBVHG3kNeARoxmN?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-roseDark hover:text-brand-rose transition-colors mt-1">
+                                <i class="fa-solid fa-folder-open text-brand-rose"></i> View Project Folder <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 7: Silver Commodity Price Forecasting -->
+                    <div class="bg-brand-surface border border-brand-border hover:border-brand-rose/50 rounded-lg p-8 transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between relative group overflow-hidden shadow-sm hover:shadow-md md:col-span-2 lg:col-span-1">
+                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-brand-rose/5 rounded-full blur-xl group-hover:bg-brand-rose/10 transition-all"></div>
+                        <div>
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-[10px] font-bold text-brand-roseDark uppercase tracking-wider bg-brand-white px-2.5 py-1 rounded border border-brand-border">Predictive Modeling</span>
+                                <i class="fa-solid fa-gem text-brand-textMuted/40 group-hover:text-brand-roseDark transition-colors"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-brand-textMain mb-3">Silver Commodity Forecasting</h3>
+                            <p class="text-sm text-brand-textMuted leading-relaxed mb-6">
+                                Modeled historical physical pricing of silver. Integrated regression algorithms and statistical trend indicators to forecast future value trajectories and project trading margins.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-border/40 flex flex-col gap-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Statistics</span>
+                                <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Forecasting</span>
+                            </div>
+                            <a href="https://drive.google.com/drive/folders/1RFllFlKWJpRn4xogCbNjvsv5Ri_T_HPl?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-roseDark hover:text-brand-rose transition-colors mt-1">
+                                <i class="fa-solid fa-folder-open text-brand-rose"></i> View Project Folder <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Live Repository Showcase Banner -->
+                <div class="mt-16 text-center">
+                    <div class="inline-block bg-brand-white border border-brand-border p-6 sm:p-10 rounded-2xl max-w-2xl mx-auto shadow-sm relative overflow-hidden">
+                        <div class="absolute -right-12 -bottom-12 w-28 h-28 bg-brand-rose/5 rounded-full blur-xl"></div>
+                        <h3 class="text-lg sm:text-xl font-bold text-brand-textMain mb-2">Want to inspect my source datasets and reports?</h3>
+                        <p class="text-sm text-brand-textMuted mb-6 leading-relaxed max-w-lg mx-auto">
+                            Access my entire project repository, including interactive Power BI files (.pbix), raw SQL scripts, and fully documented business intelligence sheets.
+                        </p>
+                        <a href="https://drive.google.com/drive/folders/1FESU2CJTXNX5ksCgrPlkpeF1xfCYqk5a?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3.5 bg-brand-rose hover:bg-brand-roseDark text-white font-semibold rounded shadow-md transition-all duration-300 hover:shadow-brand-rose/20 transform hover:-translate-y-0.5 gap-2">
+                            <i class="fa-solid fa-folder-open"></i> Browse Repository on Google Drive <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SKILLS / TECHNICAL EXPERTISE SECTION -->
+        <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-brand-border">
+            <div class="max-w-7xl mx-auto">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-bold tracking-widest text-brand-roseDark uppercase">Toolbox Matrix</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold mt-2 mb-12 relative inline-block">
+                        Technical Expertise
+                        <span class="absolute bottom-[-10px] left-0 w-12 h-[3px] bg-brand-rose"></span>
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Data Visualisation Card -->
+                    <div class="bg-brand-surface p-6 rounded-lg border border-brand-border border-l-[3px] border-l-brand-rose hover:-translate-y-1 transition-all duration-300 shadow-sm">
+                        <div class="text-brand-roseDark text-2xl mb-4"><i class="fa-solid fa-chart-pie"></i></div>
+                        <h3 class="text-lg font-bold text-brand-textMain">Data Visualisation</h3>
+                        <p class="text-sm text-brand-textMuted mt-2 leading-relaxed">
+                            Power BI Desktop/Service, robust DAX calculations, structured dashboard designs, drill-through variables, and automated system alerts.
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Power BI</span>
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">DAX</span>
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Data Modelling</span>
+                        </div>
+                    </div>
+
+                    <!-- Spreadsheet Analysis Card -->
+                    <div class="bg-brand-surface p-6 rounded-lg border border-brand-border border-l-[3px] border-l-brand-rose hover:-translate-y-1 transition-all duration-300 shadow-sm">
+                        <div class="text-brand-roseDark text-2xl mb-4"><i class="fa-solid fa-file-excel"></i></div>
+                        <h3 class="text-lg font-bold text-brand-textMain">Spreadsheet Analysis</h3>
+                        <p class="text-sm text-brand-textMuted mt-2 leading-relaxed">
+                            Power Query data extraction workflows, customized nested parameters (INDEX, MATCH, VLOOKUP), dynamic pivot tables, array tracking.
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Advanced Excel</span>
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Power Query</span>
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Pivots</span>
+                        </div>
+                    </div>
+
+                    <!-- Databases & Code Card -->
+                    <div class="bg-brand-surface p-6 rounded-lg border border-brand-border border-l-[3px] border-l-brand-rose hover:-translate-y-1 transition-all duration-300 shadow-sm">
+                        <div class="text-brand-roseDark text-2xl mb-4"><i class="fa-solid fa-database"></i></div>
+                        <h3 class="text-lg font-bold text-brand-textMain">Databases & Code</h3>
+                        <p class="text-sm text-brand-textMuted mt-2 leading-relaxed">
+                            Relational database design schemas, optimization querying (Complex Joins, Window functions, CTEs), and query performance analysis.
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">SQL (Joins, CTEs)</span>
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">HTML & CSS</span>
+                        </div>
+                    </div>
+
+                    <!-- Core Analytics Card -->
+                    <div class="bg-brand-surface p-6 rounded-lg border border-brand-border border-l-[3px] border-l-brand-rose hover:-translate-y-1 transition-all duration-300 shadow-sm">
+                        <div class="text-brand-roseDark text-2xl mb-4"><i class="fa-solid fa-calculator"></i></div>
+                        <h3 class="text-lg font-bold text-brand-textMain">Core Analytics</h3>
+                        <p class="text-sm text-brand-textMuted mt-2 leading-relaxed">
+                            Statistical hypothesis parsing, regression models, probability distribution evaluation, variance analysis, predictive indicators.
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Probability Theory</span>
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Regression</span>
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Modeling</span>
+                        </div>
+                    </div>
+
+                    <!-- Emerging Tools Card -->
+                    <div class="bg-brand-surface p-6 rounded-lg border border-brand-border border-l-[3px] border-l-brand-rose hover:-translate-y-1 transition-all duration-300 shadow-sm">
+                        <div class="text-brand-roseDark text-2xl mb-4"><i class="fa-solid fa-bolt"></i></div>
+                        <h3 class="text-lg font-bold text-brand-textMain">Emerging Technologies</h3>
+                        <p class="text-sm text-brand-textMuted mt-2 leading-relaxed">
+                            Prototyping software applications quickly using artificial intelligence assists, automated script configurations, dynamic data workflows.
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Vibe Coding</span>
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">AI Prototyping</span>
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Rapid Deployment</span>
+                        </div>
+                    </div>
+
+                    <!-- Strategic Thinking Card -->
+                    <div class="bg-brand-surface p-6 rounded-lg border border-brand-border border-l-[3px] border-l-brand-rose hover:-translate-y-1 transition-all duration-300 shadow-sm">
+                        <div class="text-brand-roseDark text-2xl mb-4"><i class="fa-solid fa-brain"></i></div>
+                        <h3 class="text-lg font-bold text-brand-textMain">Business Acumen</h3>
+                        <p class="text-sm text-brand-textMuted mt-2 leading-relaxed">
+                            Bridging complex database operations to real stakeholders. Translating abstract data matrices into actionable visual business guidelines.
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Case Structuring</span>
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Reporting KPIs</span>
+                            <span class="text-xs px-2 py-1 bg-brand-white text-brand-textMuted rounded font-semibold border border-brand-border">Decision Matrices</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION SECTION -->
+        <section id="education" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-brand-border">
+            <div class="max-w-7xl mx-auto">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-bold tracking-widest text-brand-roseDark uppercase">Academic Roots</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold mt-2 mb-12 relative inline-block">
+                        Education & Qualifications
+                        <span class="absolute bottom-[-10px] left-0 w-12 h-[3px] bg-brand-rose"></span>
+                    </h2>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- B.Sc. Card -->
+                    <div class="bg-brand-surface border border-brand-border p-6 sm:p-8 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-brand-rose/40 transition-all duration-300 shadow-sm">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 rounded bg-brand-white border border-brand-border text-brand-roseDark text-xl mt-1 shadow-sm">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-bold text-brand-textMain">B.Sc. in Mathematics, Statistics & Computer Science</h3>
+                                <p class="text-sm text-brand-textMuted mt-1">Rao Degree College <span class="text-brand-roseDark font-semibold">| Graduating Cohort: 2022 – 2025</span></p>
+                                <p class="text-xs text-brand-textMuted mt-3">Synthesizes key frameworks of discrete mathematical functions, statistical variance testing, algorithms, and computational modeling paradigms.</p>
+                            </div>
+                        </div>
+                        <div class="md:text-right shrink-0">
+                            <span class="inline-block px-4 py-2 bg-brand-roseLight text-brand-roseDark border border-brand-rose/20 rounded font-bold font-mono text-sm">
+                                CGPA: 8.97 / 10.0 (Grade A)
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Intermediate Card -->
+                    <div class="bg-brand-surface border border-brand-border p-6 sm:p-8 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-brand-rose/40 transition-all duration-300 shadow-sm">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 rounded bg-brand-white border border-brand-border text-brand-roseDark text-xl mt-1 shadow-sm">
+                                <i class="fa-solid fa-school"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-bold text-brand-textMain">Intermediate (MPC)</h3>
+                                <p class="text-sm text-brand-textMuted mt-1">Sri Chaitanya Junior College <span class="text-brand-roseDark font-semibold">| 2020 – 2022</span></p>
+                                <p class="text-xs text-brand-textMuted mt-3">Advanced secondary syllabus specializing in core sciences: Mathematics, Physics, and Chemistry (MPC).</p>
+                            </div>
+                        </div>
+                        <div class="md:text-right shrink-0">
+                            <span class="inline-block px-4 py-2 bg-brand-roseLight text-brand-roseDark border border-brand-rose/20 rounded font-bold font-mono text-sm">
+                                Score: 82.5%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT & FOOTER -->
+        <footer class="bg-brand-surface border-t border-brand-border pt-20 pb-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto text-center">
+                
+                <!-- Contact Card Box -->
+                <div class="max-w-3xl mx-auto bg-brand-white border border-brand-border rounded-xl p-8 sm:p-12 mb-16 relative overflow-hidden shadow-md">
+                    <div class="absolute -bottom-12 -left-12 w-36 h-36 bg-brand-rose/5 rounded-full blur-2xl"></div>
+                    
+                    <h3 class="text-2xl sm:text-3xl font-bold text-brand-textMain mb-4">Let's connect on your next analytics pipeline</h3>
+                    <p class="text-brand-textMuted text-sm sm:text-base max-w-xl mx-auto mb-8">
+                        I am actively open to Junior Data Analyst, Business Analyst, or Strategy Analyst roles where my quantitative background can drive immediate value.
+                    </p>
+
+                    <!-- Interactive clipboard container -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="mailto:siddiquemantasha92@gmail.com" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-brand-rose hover:bg-brand-roseDark text-white font-semibold rounded shadow-md transition-colors duration-300">
+                            <i class="fa-solid fa-envelope mr-2"></i> Email Me Directly
+                        </a>
+                        <!-- Dynamic Copy Button -->
+                        <button onclick="copyToClipboard('siddiquemantasha92@gmail.com')" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-brand-surface text-brand-textMain border border-brand-border hover:border-brand-rose font-semibold rounded transition-all duration-300 group shadow-sm">
+                            <span id="copy-text"><i class="fa-regular fa-copy mr-2 group-hover:scale-110 transition-transform"></i> Copy Email Address</span>
+                        </button>
+                    </div>
+
+                    <!-- Custom toast alert drawer directly inside layout (no browser alerts used) -->
+                    <div id="copy-toast" class="hidden mt-4 inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 rounded text-xs mx-auto animate-fade-in">
+                        <i class="fa-solid fa-circle-check"></i> Email successfully copied to clipboard!
+                    </div>
+                </div>
+
+                <!-- Footer Social Directories -->
+                <div class="flex justify-center gap-6 mb-8">
+                    <a href="https://linkedin.com/in/mantasha-siddique" target="_blank" class="h-12 w-12 rounded-full bg-brand-white border border-brand-border hover:border-brand-rose flex items-center justify-center text-brand-textMuted hover:text-brand-roseDark text-lg transition-all transform hover:-translate-y-1 shadow-sm" aria-label="LinkedIn Profile">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a href="mailto:siddiquemantasha92@gmail.com" class="h-12 w-12 rounded-full bg-brand-white border border-brand-border hover:border-brand-rose flex items-center justify-center text-brand-textMuted hover:text-brand-roseDark text-lg transition-all transform hover:-translate-y-1 shadow-sm" aria-label="Email Contact">
+                        <i class="fa-solid fa-envelope animate-pulse"></i>
+                    </a>
+                </div>
+
+                <!-- Footer Bottom Meta Info -->
+                <div class="border-t border-brand-border pt-8 text-xs sm:text-sm text-brand-textMuted space-y-2">
+                    <p class="font-mono">Mumbai, Maharashtra, India | +91 96532 48294</p>
+                    <p class="text-[11px] text-zinc-400">&copy; 2026 Mantasha Siddique. Engineered using Light Violet & Dusty Rose Design Framework.</p>
+                </div>
+
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- INTERACTION LOGIC SCRIPTS -->
+    <script>
+        // Use high-compatibility Google Thumbnail API, which bypasses cross-origin blocking inside iframes
+        const driveId = "1ILOe2pF30K4LZ7gCVWYJyEp6UKvmEWjI";
+
+        // Structured fallbacks optimized specifically for iframe environments
+        const directFormats = [
+            `https://drive.google.com/thumbnail?id=${driveId}&sz=w1000`,
+            `https://lh3.googleusercontent.com/d/${driveId}`,
+            `https://drive.google.com/uc?export=view&id=${driveId}`,
+            `https://docs.google.com/uc?id=${driveId}`
+        ];
+
+        // Function to cycle formats for an image element
+        function loadImageWithFallbacks(imgElement, formatIndex = 0) {
+            if (formatIndex < directFormats.length) {
+                imgElement.src = directFormats[formatIndex];
+                imgElement.onerror = function() {
+                    console.warn(`Image Format index ${formatIndex} failed/blocked. Moving to next format...`);
+                    loadImageWithFallbacks(imgElement, formatIndex + 1);
+                };
+                imgElement.onload = function() {
+                    // Once loaded, make sure to make the image visible
+                    imgElement.classList.remove('hidden');
+                    
+                    // Hide corresponding fallback initial-box
+                    if (imgElement.id === 'splash-pfp') {
+                        const splashFallback = document.querySelector('.fallback-avatar-splash');
+                        if (splashFallback) splashFallback.style.display = 'none';
+                    } else if (imgElement.id === 'hero-pfp') {
+                        const heroFallback = document.querySelector('.fallback-avatar-hero');
+                        if (heroFallback) heroFallback.style.display = 'none';
+                    }
+                };
+            } else {
+                // If all Google direct routes fail (usually means private file settings)
+                console.error("All direct streaming routes failed. Using premium vector fallback.");
+                imgElement.classList.add('hidden'); // Hide broken image element
+                
+                // Show customized initial fallback avatars
+                const splashFallback = document.querySelector('.fallback-avatar-splash');
+                const heroFallback = document.querySelector('.fallback-avatar-hero');
+                if (splashFallback) splashFallback.classList.remove('hidden');
+                if (heroFallback) heroFallback.classList.remove('hidden');
+
+                // Reveal user instructions explaining Google Drive general access settings
+                const driveWarning = document.getElementById('drive-warning');
+                if (driveWarning) {
+                    driveWarning.classList.remove('hidden');
+                }
+            }
+        }
+
+        // Initialize images on immediate load sequence
+        window.addEventListener('DOMContentLoaded', () => {
+            const splashImg = document.getElementById('splash-pfp');
+            const heroImg = document.getElementById('hero-pfp');
+
+            if (splashImg) {
+                loadImageWithFallbacks(splashImg, 0);
+            }
+            if (heroImg) {
+                loadImageWithFallbacks(heroImg, 0);
+            }
+        });
+
+        // Skip intro handler (Forces Let's Go click to reveal portfolio)
+        function skipIntro() {
+            const overlay = document.getElementById('intro-overlay');
+            const mainContent = document.getElementById('main-portfolio');
+            
+            overlay.classList.add('fade-out');
+            mainContent.classList.add('visible');
+            mainContent.style.opacity = '1';
+            
+            // Re-allow scrolling once layout reveals
+            document.body.classList.remove('overflow-lock');
+
+            // Prevent layout issues by removing overlay from visibility after fade ends
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 1000);
+        }
+
+        // Mobile responsive side drawer toggle logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = menuToggle.querySelector('i');
+            if(mobileMenu.classList.contains('hidden')) {
+                icon.className = 'fa-solid fa-bars text-xl';
+            } else {
+                icon.className = 'fa-solid fa-xmark text-xl';
+            }
+        });
+
+        // Hide mobile menu on anchor clicks
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuToggle.querySelector('i').className = 'fa-solid fa-bars text-xl';
+            });
+        });
+
+        // IntersectionObserver: Automatically update Desktop Active Links on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a.nav-link');
+
+        const observerOptions = {
+            root: null,
+            threshold: 0.3, // Highlight when section is 30% in viewport
+            rootMargin: "-20% 0px -6% 0px" // Account for header offset
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.className = "nav-link text-sm font-medium text-brand-roseDark border-b-2 border-brand-rose pb-1 transition-colors duration-300";
+                        } else {
+                            link.className = "nav-link text-sm font-medium text-brand-textMuted hover:text-brand-roseDark border-b-2 border-transparent hover:border-brand-rose pb-1 transition-colors duration-300";
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => sectionObserver.observe(section));
+
+        // Clipboard Copy Utility without alert window
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const toast = document.getElementById('copy-toast');
+                    toast.classList.remove('hidden');
+                    const btnSpan = document.getElementById('copy-text');
+                    btnSpan.innerHTML = '<i class="fa-solid fa-check mr-2 text-emerald-600"></i> Copied!';
+                    
+                    setTimeout(() => {
+                        toast.classList.add('hidden');
+                        btnSpan.innerHTML = '<i class="fa-regular fa-copy mr-2"></i> Copy Email Address';
+                    }, 3000);
+                }
+            } catch (err) {
+                console.error('Copy attempt failed', err);
+            }
+            document.body.removeChild(textarea);
+        }
+    </script>
+</body>
+</html>
